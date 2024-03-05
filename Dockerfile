@@ -1,14 +1,15 @@
 # Base Image
-FROM python:3.13.0a4-slim-bullseye
+# FROM python:3.13.0a4-slim-bullseye
+FROM python:alpine3.19
 
 # Working Directory
 WORKDIR /home
 
-# Install Dependencies
-RUN pip install flask
-
 # Copy files
-COPY . /home/
+COPY . /home
+
+# Install dependencies
+RUN pip install flask
 
 # Enviroment setup for flask, as flask by default listens on 5000
 ENV FLASK_APP=app.py
