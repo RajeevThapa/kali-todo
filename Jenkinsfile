@@ -23,7 +23,7 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    withDockerRegistry([credentialsId: '10462078-a2fa-4a40-a943-e45eff360061', url: DOCKER_REGISTRY]) {
+                    withDockerRegistry([credentialsId: "${DOCKERHUB_CREDENTIALS}", url: DOCKER_REGISTRY]) {
                         dockerImage.push()
                     }
                     //  withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
