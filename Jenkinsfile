@@ -22,7 +22,7 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                     withCredentials([usernamePassword(credentialsId: "${CREDENTIALS_ID}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                     withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
                             customImage.push()
                         }
