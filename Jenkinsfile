@@ -7,6 +7,7 @@ pipeline {
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         DOCKERFILE_PATH = "Dockerfile"
         DOCKERHUB_CREDENTIALS = "10462078-a2fa-4a40-a943-e45eff360061"
+        DOCKER_REGISTRY = ""
     }   
 
     stages {
@@ -23,9 +24,10 @@ pipeline {
             steps {
                 script {
                      withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
+                        sh "echo \${DOCKER_PASSWORD} | docker login -u \${DOCKER_USERNAME} --password-stdin \${DOCKER_REGISTRY}"
+                        // docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
                             customImage.push()
-                        }
+                        // }
                     }
                 }
             }
