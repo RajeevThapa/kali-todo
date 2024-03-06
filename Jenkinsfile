@@ -7,7 +7,7 @@ pipeline {
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         DOCKERFILE_PATH = "Dockerfile"
         DOCKERHUB_CREDENTIALS = "10462078-a2fa-4a40-a943-e45eff360061"
-        DOCKER_REGISTRY = ""
+        DOCKER_REGISTRY = "https://registry.hub.docker.com/"
     }   
 
     stages {
