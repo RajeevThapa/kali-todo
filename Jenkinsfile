@@ -18,15 +18,17 @@ pipeline {
                 }
             }
         }
-        /* Stage push the customImage to dockerhub */ 
+        /* Stage push the customImage to dockerhub */
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
-                        customImage.push()
+                     withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDENTIALS}", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        docker.withRegistry('', "${DOCKER_USERNAME}", "${DOCKER_PASSWORD}") {
+                            customImage.push()
+                        }
                     }
                 }
             }
-        }
+        } 
     }
 }
