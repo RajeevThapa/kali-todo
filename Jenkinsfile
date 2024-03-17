@@ -24,7 +24,11 @@ pipeline {
                     // Push the Docker image to Docker Hub
                     withCredentials([usernamePassword(credentialsId: dockerHubCreds, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         docker.withRegistry('', '10462078-a2fa-4a40-a943-e45eff360061') {
-                            sh "docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD"
+                            // sh "docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD"
+                            // sh "docker push $DOCKER_IMAGE"
+                            
+                            // Log in to Docker Hub using --password-stdin
+                            sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
                             sh "docker push $DOCKER_IMAGE"
                         }
                     }
