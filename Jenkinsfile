@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     // Build your Docker image
-                    // sh 'docker build -t $DOCKER_IMAGE .'
+                    sh 'docker build -t $DOCKER_IMAGE .'
                 }
             }
         }
