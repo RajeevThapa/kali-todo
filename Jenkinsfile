@@ -4,6 +4,11 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'rajeevmagar/kali-todo:v1.0.1'
     }
+        IMAGE_NAME = "rajeevmagar/kali-todo"
+        IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
+        DOCKERFILE_PATH = "Dockerfile"
+        DOCKERHUB_CREDENTIALS = "10462078-a2fa-4a40-a943-e45eff360061"
+    }   
 
     stages {
         stage('Build') {
@@ -31,6 +36,8 @@ pipeline {
                             sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
                             sh "docker push $DOCKER_IMAGE"
                         }
+                    docker.withRegistry('', "${DOCKERHUB_CREDENTIALS}") {
+                        customImage.push()
                     }
                 }
             }
